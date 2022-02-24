@@ -63,3 +63,96 @@ body {
       color: $green;
     }
 }
+
+$fields: 
+0, 0, 0, 0, 1,
+0, 0, 0, 0, 0,
+1, 1, 0, 0, 1,
+0, 0, 1, 0, 1,
+0, 0, 1, 1, 1;
+
+$fieldsCount: length($fields);
+
+@for $i from 1 through $fieldsCount {
+    #field-checkbox#{$i}:checked ~ .layers .fields-layer #field#{$i} {
+        background: radial-gradient(#fff, #C2C3C5);
+        pointer-events: none;
+        z-index: 5;
+    }
+}
+
+.action-type {
+    & + label {
+        border-radius: 20px;
+        margin: 0 5px;
+        border: 1px solid black;
+        color: white;
+        cursor: pointer;
+        padding: 5px;
+        width: 80px;
+        display: inline-block;
+        opacity: 0.6;
+        transition: opacity 0.4s;
+        background: radial-gradient($light-blue, $blue);
+  
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+  
+    &:checked + label {
+        font-weight: bold;
+        opacity: 1;
+    }
+}
+  
+.flags-layer {
+    label:after {
+        content: '?';
+    }
+}
+  
+.board {
+    #mark:checked ~ .fields-layer label {
+        pointer-events: none;
+    }
+  
+    .flags-layer {
+        visibility: hidden;
+  
+        label {
+            visibility: hidden;
+  
+            #mark:checked ~ & {
+                visibility: visible;
+            }
+  
+            #dig:checked ~ & {
+                pointer-events: none;
+            }
+        }
+    }
+}
+  
+@for $i from 1 through $fieldsCount {
+    #flag-checkbox#{$i}:checked ~ .layers .flags-layer #flag#{$i} {
+        background: radial-gradient($yellow, $light-yellow);
+        visibility: visible !important;
+  
+         &:after {
+            content: "💣";
+        }
+    }
+  
+    #field-checkbox#{$i}:checked ~ .layers .fields-layer #field#{$i} {
+        z-index: 5;
+    }
+  
+    #flag-checkbox#{$i}:checked ~ .layers .fields-layer #field#{$i} {
+        pointer-events: none;
+    }
+  
+    #field-checkbox#{$i}:checked ~ .layers .flags-layer #flag#{$i} {
+        pointer-events: none;
+    }
+}
