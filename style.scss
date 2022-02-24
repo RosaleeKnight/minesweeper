@@ -266,3 +266,40 @@ $fieldsPerRow: 5;
         }
     }
 }
+
+$minesCount: 0;
+
+@each $field in $fields {
+    @if $field == 1 {
+        $minesCount: $minesCount + 1
+    }
+}
+
+body {
+    counter-reset: markedFieldsCount uncoveredFieldsCount;
+}
+
+@for $i from 1 through $fieldsCount {
+    #flag-checkbox#{$i}:checked ~ .layers .flags-layer #flag#{$i} {
+        counter-increment: markedFieldsCount
+    }
+
+    #field-checkbox#{$i}:checked ~ .layers .fields-layer #field#{$i} {
+        counter-increment: uncoveredFieldsCount
+    }
+}
+
+.game-stats {
+    text-align: center;
+    font-size: 12px;
+    color: white;
+    margin: 10px 0;
+
+    .fields:after {
+        content: 'Uncovered fields: ' counter(uncoveredFieldsCount) '/' + ($fieldsCount - $minesCount)
+    }
+
+    .mines:after {
+        content: 'Marked mines: ' counter(markedFieldsCount) '/' + $minesCount
+    }
+}
