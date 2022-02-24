@@ -7,9 +7,11 @@
     <title>Minesweeper</title>
 </head>
 <body>
-    <input id="field-checkbox" type="checkbox">
-    <label id="field" for="field-checkbox"></label>
     <form class="game">
+        <input class="action-type" id="dig" type="radio" name="actionType" checked>
+        <label class="action-type" for="dig">DIG</label>
+        <input class="action-type" id="mark" type="radio" name="actionType">
+        <label class="action-type" for="mark">MARK</label>
         <div class="board">
             <input id="field-checkbox1" type="checkbox">
             <input id="field-checkbox2" type="checkbox">
@@ -64,7 +66,15 @@
                     <label id="field2" for="field-checkbox24"></label>
                     <label id="field25" for="field-checkbox25"></label>
                 </div>
-            </div>
+                <div class="finish-layer">
+                    <div class="loser-screen">
+                        <button type="reset">You lose. Try again?</button>
+                    </div>
+                    <div class="winner-screen">
+                        <button type="reset">Congrats. Play again?</button>
+                    </div>
+                </div>
+            </div>  
         </div>
     </form>
 </body>
