@@ -212,3 +212,57 @@ $allEmptyFieldsCheckedCombinedSelector: ();
     visibility: visible;
     z-index: 10;
 }
+
+$fieldsPerRow: 5;
+
+@function neighborExists($field, $direction) {
+    @if $direction == 'up' {
+        @return $field - $fieldsPerRow > 0
+    }
+
+  @if $direction == 'down' {
+        @return $field + $fieldsPerRow <= length($fields)
+  }
+
+  @if $direction == 'right' {
+        @return $field % $fieldsPerRow != 0
+  }
+
+  @if $direction == 'left' {
+        @return $field % $fieldsPerRow != 1
+    }
+}
+
+@for $i from 1 through length($fields) {
+    $minesAround: 0;
+    @if neighborExists($i, 'up') and hasMine($i - $fieldsPerRow) {
+        $minesAround: $minesAround + 1;
+    }
+    @if neighborExists($i, 'down') and hasMine($i + $fieldsPerRow) {
+        $minesAround: $minesAround + 1;
+    }
+    @if neighborExists($i, 'right') and hasMine($i + 1) {
+        $minesAround: $minesAround + 1;
+    }
+    @if neighborExists($i, 'left') and hasMine($i - 1) {
+        $minesAround: $minesAround + 1;
+    }
+    @if neighborExists($i, 'left') and neighborExists($i - 1, 'up') and hasMine($i - 1 - $fieldsPerRow) {
+        $minesAround: $minesAround + 1;
+    }
+    @if neighborExists($i, 'right') and neighborExists($i + 1, 'up') and hasMine($i + 1 - $fieldsPerRow) {
+        $minesAround: $minesAround + 1;
+    }
+    @if neighborExists($i, 'left') and neighborExists($i - 1, 'down') and hasMine($i - 1 + $fieldsPerRow) {
+        $minesAround: $minesAround + 1;
+    }
+    @if neighborExists($i, 'right') and neighborExists($i + 1, 'down') and hasMine($i + 1 + $fieldsPerRow ) {
+        $minesAround: $minesAround + 1;
+    }
+
+    @if hasMine($i) == false {
+        #field-checkbox#{$i}:checked ~ .layers .fields-layer #field#{$i}:after {
+            content: '' + $minesAround
+        }
+    }
+}
