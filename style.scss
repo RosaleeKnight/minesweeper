@@ -1,0 +1,29 @@
+input[type=checkbox] {
+    display: none;
+}
+  
+label {
+    background: radial-gradient(#80D5FD, #6AA3E6);
+}
+  
+#field-checkbox:checked ~ #field {
+    background: radial-gradient(#fff, #C2C3C5);
+  }
+
+input[type=checkbox] {
+    display: none;
+}
+  
+label {
+
+background: radial-gradient(#80D5FD, #6AA3E6);
+}
+  
+$fieldsCount: 25;
+  
+@for $i from 1 through $fieldsCount {
+    #field-checkbox#{$i}:checked ~ .layers .fields-layer #field#{$i} {
+        background: radial-gradient(#fff, #C2C3C5);
+        pointer-events: none;
+    }
+}
