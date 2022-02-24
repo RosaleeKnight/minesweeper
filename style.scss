@@ -1,28 +1,10 @@
-input[type=checkbox] {
-    display: none;
-}
-  
-label {
-    background: radial-gradient(#80D5FD, #1d497a);
-}
-  
-#field-checkbox:checked ~ #field {
-    background: radial-gradient(#fff, #86888b);
-  }
-
-input[type=checkbox] {
-    display: none;
-}
-  
-label {
-    background: radial-gradient(#80D5FD, #1d497a);
-}
-  
-$fieldsCount: 25;
-  
-@for $i from 1 through $fieldsCount {
-    #field-checkbox#{$i}:checked ~ .layers .fields-layer #field#{$i} {
-        background: radial-gradient(#fff, #86888b);
-        pointer-events: none;
-    }
-}
+$deep-blue: #2b3242;
+$blue: #6AA3E6;
+$light-blue: #80D5FD;
+$white: #fff;
+$gray: #C2C3C5;
+$yellow: #E7C04B;
+$light-yellow: #FBDD42;
+$red: #c50900;
+$light-red: #d50004;
+$green: #748F28;
