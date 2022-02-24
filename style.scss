@@ -156,3 +156,59 @@ $fieldsCount: length($fields);
         pointer-events: none;
     }
 }
+
+.loser-screen, .winner-screen {
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    visibility: hidden;
+    top: 0;
+    left: 0;
+  
+    button {
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+        background: none;
+        color: white;
+        font-size: 20px;
+    }
+}
+  
+.winner-screen {
+    background: rgba(0, 255, 0, 0.7);
+  
+    button {
+        color: black;
+    }
+}
+  
+$allEmptyFieldsCheckedCombinedSelector: ();
+  
+@function hasMine($fieldIndex) {
+    @return nth($fields, $fieldIndex) == 1
+}
+  
+@for $i from 1 through $fieldsCount {
+    @if hasMine($i) {
+        #field-checkbox#{$i}:checked ~ .layers .fields-layer #field#{$i} {
+            background: radial-gradient($red, $light-red)
+        }
+
+        #field-checkbox#{$i}:checked ~ .layers .finish-layer .loser-screen {
+            visibility: visible;
+            z-index: 10;
+        }
+    }
+
+    @if hasMine($i) == false {
+        $allEmptyFieldsCheckedCombinedSelector: append($allEmptyFieldsCheckedCombinedSelector, 
+            unquote('#field-checkbox#{$i}:checked ~ '), space);
+    }
+}
+
+#{$allEmptyFieldsCheckedCombinedSelector} .layers .finish-layer .winner-screen {
+    visibility: visible;
+    z-index: 10;
+}
